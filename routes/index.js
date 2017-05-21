@@ -30,11 +30,4 @@ router.post('/upload',upload.single('file'), function (req, res, next) {
 
 })
 
-app.get('/:file(*)', function(req, res, next){
-    var file = req.params.file
-        , path = __dirname + '/files/' + file;
-
-    res.download(path);
-});
-
 module.exports = router;
