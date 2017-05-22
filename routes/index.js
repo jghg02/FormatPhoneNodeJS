@@ -20,11 +20,13 @@ var upload = multer({ storage: storage })
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+    console.log('Get Index Pug Template....');
+    res.render('index', { title: 'Express' });
 });
 
 
 router.post('/upload',upload.single('file'), function (req, res, next) {
+    console.log('Request /upload....');
     utils.processFile('/Users/jhgonzalez/Desktop/MyApp/ME/MeliFormatter/uploads/' + req.file.originalname)
     res.status(204).end()
 

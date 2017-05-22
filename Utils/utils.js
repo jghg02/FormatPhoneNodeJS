@@ -11,6 +11,8 @@ var phoneNumberUtil = googleLibPhoneNumber.PhoneNumberUtil.getInstance();
 var pathFile
 
 function processFile(inputFile) {
+    console.log('Procesando el Archivo...');
+    console.log(inputFile);
     pathFile = inputFile
     var fs = require('fs'),
         readline = require('readline'),
@@ -67,6 +69,7 @@ function _clearNumber(number){
  * @private
  */
 function _processNumber(areaCode, phoneNumber, country, vertical) {
+    console.log('se esta procesando el numero para realizar el formateo');
     if (phoneNumber) {
         if (_isInternationalPhoneFormatEnabled(vertical)) {
             try {
@@ -104,6 +107,7 @@ function _phoneNumberWithoutFormat(areaCode, phoneNumber) {
 }
 
 function outPutFile(data, path, fs) {
+    consoel.l
     fs.appendFile(path + new Date(), data, function(err) {
         if(err) {
             return console.log(err);
