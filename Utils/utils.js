@@ -107,7 +107,7 @@ function _phoneNumberWithoutFormat(areaCode, phoneNumber) {
 }
 
 function outPutFile(data, path, fs) {
-    consoel.l
+    console.log(data);
     fs.appendFile(path + new Date(), data, function(err) {
         if(err) {
             return console.log(err);
