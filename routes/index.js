@@ -27,7 +27,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/upload',upload.single('file'), function (req, res, next) {
     console.log('Request /upload....');
-    utils.processFile('/Users/jhgonzalez/Desktop/MyApp/ME/MeliFormatter/uploads/' + req.file.originalname)
+    utils.processFile('/app/uploads/' + req.file.originalname)
     res.status(204).end()
 
 })
