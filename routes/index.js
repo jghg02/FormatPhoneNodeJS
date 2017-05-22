@@ -26,8 +26,9 @@ router.get('/', function(req, res, next) {
 
 
 router.post('/upload',upload.single('file'), function (req, res, next) {
-    console.log('Request /upload....');
-    utils.processFile('/app/uploads/' + req.file.originalname)
+    var folderUploads = 'uploads/'
+
+    utils.processFile(path.join(process.cwd() , folderUploads) + req.file.originalname)
     res.status(204).end()
 
 })

@@ -27,7 +27,7 @@ function processFile(inputFile) {
 
     rl.on('close', function (line) {
         console.log('done reading file.');
-        download(inputFile)
+        //download(inputFile)
     });
 }
 
