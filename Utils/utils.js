@@ -111,7 +111,7 @@ function outPutFile(data, path, fileName, fs) {
     // Name of file to save result
     //path = path + fileName.substr(0,fileName.indexOf('.')) + getRandomInt(0,100) + fileExtension
     path = path + fileName.substr(0,fileName.indexOf('.')) + new Date().getDate() + fileExtension
-    filetoDowload = path
+    getFileNameToDownload(fileName)
     fs.appendFile(path, data, function(err) {
         if(err) {
             return console.log(err);
@@ -119,6 +119,10 @@ function outPutFile(data, path, fileName, fs) {
     });
 
     console.log("The file was saved!");
+}
+
+function getFileNameToDownload(fileName) {
+    return fileName.substr(0,fileName.indexOf('.')) + new Date().getDate() + fileExtension
 }
 
 function download(path, fileName) {
@@ -145,5 +149,6 @@ function getRandomInt(min, max) {
 exports.processFile = processFile;
 exports.getRandomArbitrary = getRandomArbitrary;
 exports.getRandomInt = getRandomInt;
+exports.getFileNameToDownload = getFileNameToDownload;
 exports.fileExtension = fileExtension;
 exports.folderUploads = folderUploads;

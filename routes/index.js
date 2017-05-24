@@ -29,15 +29,15 @@ router.post('/upload',upload.single('file'), function (req, res, next) {
     // get name of file
     var fileName = req.file.originalname.substr(0,req.file.originalname.indexOf('.')) + utils.fileExtension;
     utils.processFile(fileName, utils.folderUploads)
+
+    res.redirect('/download/'+utils.getFileNameToDownload(fileName))
     res.status(204).end()
 
 })
 
-router.get('/download', function (req, res) {
-    var file = utils.folderUploads + 't' + utils.fileExtension
-    console.log('---------');
-    console.log(file)
-    res.download(file); // Set disposition and send it.
+router.get('/download/:name', function (req, res) {
+    res.download(utils.folderUploads + req.params.name)
+
 })
 
 module.exports = router;
