@@ -8,21 +8,20 @@ var googleLibPhoneNumber = require('google-libphonenumber')
 var PhoneNumberFormat = googleLibPhoneNumber.PhoneNumberFormat;
 var phoneNumberUtil = googleLibPhoneNumber.PhoneNumberUtil.getInstance();
 
-var pathFile
+var fileExtension = '.txt'
+var folderUploads = 'uploads/'
 
-function processFile(inputFile) {
-    console.log('Procesando el Archivo...');
-    console.log(inputFile);
-    pathFile = inputFile
+function processFile(fileName, path) {
+    pathFile = path + fileName
     var fs = require('fs'),
         readline = require('readline'),
-        instream = fs.createReadStream(inputFile),
+        instream = fs.createReadStream(path + fileName),
         outstream = new (require('stream'))(),
         rl = readline.createInterface(instream, outstream);
 
     rl.on('line', function (line) {
         var line = line.split(' ');
-        formatPhone(line[0], line[1], line[2], pathFile, fs)
+        formatPhone(line[0], line[1], line[2], path, fileName, fs)
     });
 
     rl.on('close', function (line) {
@@ -31,8 +30,8 @@ function processFile(inputFile) {
     });
 }
 
-function formatPhone(countryCode, areCode, phone, path, fs) {
-    outPutFile(_processNumber(areCode,phone,countryCode, null) + '\r',path, fs)
+function formatPhone(countryCode, areCode, phone, path, fileName, fs) {
+    outPutFile(_processNumber(areCode,phone,countryCode, null) + '\r',path, fileName, fs)
 }
 
 /**
@@ -106,9 +105,11 @@ function _phoneNumberWithoutFormat(areaCode, phoneNumber) {
     return (areaCode != null ? areaCode + ' ' : '') + phoneNumber;
 }
 
-function outPutFile(data, path, fs) {
-    console.log(data);
-    fs.appendFile(path + new Date(), data, function(err) {
+function outPutFile(data, path, fileName, fs) {
+    // Name of file to save result
+    //path = path + fileName.substr(0,fileName.indexOf('.')) + getRandomInt(0,100) + fileExtension
+    path = path + fileName.substr(0,fileName.indexOf('.')) + new Date().getDate() + fileExtension
+    fs.appendFile(path, data, function(err) {
         if(err) {
             return console.log(err);
         }
@@ -135,4 +136,24 @@ function download(url, cb) {
     });
 }
 
+
+/**
+ * Returns a random number between min (inclusive) and max (exclusive)
+ */
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
+
+/**
+ * Returns a random integer between min (inclusive) and max (inclusive)
+ * Using Math.round() will give you a non-uniform distribution!
+ */
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 exports.processFile = processFile;
+exports.getRandomArbitrary = getRandomArbitrary;
+exports.getRandomInt = getRandomInt;
+exports.fileExtension = fileExtension;
+exports.folderUploads = folderUploads;
