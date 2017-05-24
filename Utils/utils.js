@@ -11,6 +11,8 @@ var phoneNumberUtil = googleLibPhoneNumber.PhoneNumberUtil.getInstance();
 var fileExtension = '.txt'
 var folderUploads = 'uploads/'
 
+var filetoDowload
+
 function processFile(fileName, path) {
     pathFile = path + fileName
     var fs = require('fs'),
@@ -26,7 +28,7 @@ function processFile(fileName, path) {
 
     rl.on('close', function (line) {
         console.log('done reading file.');
-        //download(inputFile)
+        //download(path, fileName)
     });
 }
 
@@ -109,6 +111,7 @@ function outPutFile(data, path, fileName, fs) {
     // Name of file to save result
     //path = path + fileName.substr(0,fileName.indexOf('.')) + getRandomInt(0,100) + fileExtension
     path = path + fileName.substr(0,fileName.indexOf('.')) + new Date().getDate() + fileExtension
+    filetoDowload = path
     fs.appendFile(path, data, function(err) {
         if(err) {
             return console.log(err);
@@ -118,22 +121,9 @@ function outPutFile(data, path, fileName, fs) {
     console.log("The file was saved!");
 }
 
-function download(url, cb) {
-    var data = "";
-    var request = require("http").get(url, function(res) {
-
-        res.on('data', function(chunk) {
-            data += chunk;
-        });
-
-        res.on('end', function() {
-            cb(data);
-        })
-    });
-
-    request.on('error', function(e) {
-        console.log("Got error: " + e.message);
-    });
+function download(path, fileName) {
+    console.log('Dowload File...')
+    res.download(path + fileName)
 }
 
 

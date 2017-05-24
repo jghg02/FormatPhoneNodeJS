@@ -20,18 +20,24 @@ var upload = multer({ storage: storage })
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.render('index', { title: 'Express' , url: '/download'});
 });
 
 
 router.post('/upload',upload.single('file'), function (req, res, next) {
     //Folder to save all files
-    var folderUploads = 'uploads/'
     // get name of file
     var fileName = req.file.originalname.substr(0,req.file.originalname.indexOf('.')) + utils.fileExtension;
     utils.processFile(fileName, utils.folderUploads)
     res.status(204).end()
 
+})
+
+router.get('/download', function (req, res) {
+    var file = utils.folderUploads + 't' + utils.fileExtension
+    console.log('---------');
+    console.log(file)
+    res.download(file); // Set disposition and send it.
 })
 
 module.exports = router;
